@@ -14,6 +14,7 @@ from portfolioproject..[Covid death]
 order by 1,2
 
 ----looking at total cases Vs total deaths
+
 select location, date, total_cases,total_deaths,(total_deaths/total_cases)*100 as deathpercentage
 from portfolioproject..[Covid death]
 where location like '%states%'
@@ -22,6 +23,7 @@ order by 1,2
 
 --- looking at total cases vs population
 --shows what percentage of population got Covid
+
 select location, date, total_cases, population, (total_cases/population)*100 as deathpercentage
 from portfolioproject..[Covid death]
 where location like '%states%'
@@ -44,6 +46,7 @@ group by location
 order by totaldeathcount desc 
 
 ---LET'S BREAK THINGS DOWN BY CONTINENT
+
 select location, Max(cast(total_deaths as int)) as totaldeathcount
 from portfolioproject..[Covid death]
 where continent is null
@@ -51,6 +54,7 @@ group by location
 order by totaldeathcount desc 
 
 ---showing the continent with the highest death count per population
+
 select location, Max(cast(total_deaths as int)) as totaldeathcount
 from portfolioproject..[Covid death]
 where continent is not null
@@ -59,6 +63,7 @@ order by totaldeathcount desc
 
 
 ---global numbers
+
 select date, Sum(new_cases) as total_cases, Sum(cast(new_deaths as int))as total_deaths, sum(cast(new_deaths as int))/
 sum(new_cases)*100 as deathpercentage
 from portfolioproject..[Covid death]
@@ -71,6 +76,7 @@ select * from portfolioproject..['Covid vaccination$']
 
 
 --- joining two table covid deaths and covid vaccination
+
 Select *
 from portfolioproject..[Covid death] dea
 join portfolioproject..['Covid vaccination$'] vac
@@ -78,6 +84,7 @@ on dea.location = vac.location
 and dea.date=vac.date
 
 --looking at total population Vs Vaccinations
+
 Select dea.continent, dea.location, dea.date,dea.population,vac.new_vaccinations
 from portfolioproject..[Covid death]dea
 join portfolioproject..['Covid vaccination$'] vac
